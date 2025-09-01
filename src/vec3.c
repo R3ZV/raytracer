@@ -3,10 +3,16 @@
 
 #include "vec3.h"
 
-void vec3_add(Vec3* const self, Vec3 const *const other) {
+void vec3_add(Vec3 *const self, Vec3 const *const other) {
     self->x += other->x;
     self->y += other->y;
     self->z += other->z;
+}
+
+void vec3_sub(Vec3* const self, Vec3 const *const other) {
+    self->x -= other->x;
+    self->y -= other->y;
+    self->z -= other->z;
 }
 
 void vec3_mul(Vec3* const self, double alpha) {
@@ -31,4 +37,41 @@ double vec3_length(Vec3 const *const self) {
 
 void vec3_print(Vec3 const *const self) {
     printf("Vec3{x=%f, y=%f, z=%lf}\n", self->x, self->y, self->y);
+}
+
+Vec3 vec3_add_new(Vec3 const *const self, Vec3 const *const other) {
+    return (Vec3) {
+        .x = self->x + other->x,
+        .y = self->y + other->y,
+        .z = self->z + other->z,
+    };
+}
+
+Vec3 vec3_sub_new(Vec3 const * const self, Vec3 const *const other) {
+    return (Vec3) {
+        .x = self->x - other->x,
+        .y = self->y - other->y,
+        .z = self->z - other->z,
+    };
+}
+
+Vec3 vec3_mul_new(Vec3 const *const self, double alpha) {
+    return (Vec3) {
+        .x = self->x * alpha,
+        .y = self->y * alpha,
+        .z = self->z * alpha,
+    };
+}
+
+Vec3 vec3_div_new(Vec3 const *const self, double alpha) {
+    return (Vec3) {
+        .x = self->x / alpha,
+        .y = self->y / alpha,
+        .z = self->z / alpha,
+    };
+}
+
+Vec3 vec3_unit_vector(Vec3 const *const v) {
+    const double len = vec3_length(v);
+    return vec3_div_new(v, len);
 }
